@@ -17,6 +17,7 @@ namespace DI_Tema4_Ejercicio6
         public int count = 0;
         public int x = 15;
         public int y = 15;
+        List<Button> buttons;
 
         //==========================================================================================
 
@@ -25,6 +26,8 @@ namespace DI_Tema4_Ejercicio6
             InitializeComponent();
             this.BackColor = Color.FromArgb(127, 120, 121);
             this.Text = "Contacts";
+            this.button1.Tag = false;
+            buttons = new List<Button>();
         }
 
         private void GenerateButtons(object sender, EventArgs e)
@@ -44,6 +47,8 @@ namespace DI_Tema4_Ejercicio6
                     btn.MouseEnter += new System.EventHandler(this.BUttonCursorEnter);
                     btn.MouseLeave += new System.EventHandler(this.ButtonCursorLeave);
                     btn.Click += new System.EventHandler(this.ButtonClick);
+                    btn.Tag = false;
+                    buttons.Add(btn);
                     this.panel1.Controls.Add(btn);
                     if (j == 2)
                     {
@@ -63,21 +68,67 @@ namespace DI_Tema4_Ejercicio6
         private void BUttonCursorEnter(object sender, EventArgs e)
         {
             Button btnEnter = (Button)sender;
-            btnEnter.BackColor = Color.FromArgb(232, 212, 205);
-           
+            if (!(bool)btnEnter.Tag)
+            {
+                btnEnter.BackColor = Color.FromArgb(232, 212, 205);
+            }
+
         }
 
         private void ButtonCursorLeave(object sender, EventArgs e)
         {
             Button btnLeave = (Button)sender;
-           
+            if (!(bool)btnLeave.Tag)
+            {
                 btnLeave.BackColor = Color.FromArgb(238, 232, 226);
+            }
         }
 
         private void ButtonClick(object sender, EventArgs e)
         {
             Button btnClick = (Button)sender;
-            btnClick.BackColor = Color.FromArgb(217, 195, 189);
+            if (btnClick != button1)
+            {
+                btnClick.BackColor = Color.FromArgb(165, 145, 148);
+                textBox1.Text += btnClick.Text;
+                btnClick.Tag = true;
+            }
+            else
+            {
+                for (int i = 0; i < buttons.Count; i++)
+                {
+                    buttons[i].BackColor = Color.FromArgb(238, 232, 226);
+                    buttons[i].Tag = false;
+                }
+                textBox1.Text = "";
+            }
+        }
+
+        private void AboutUs(object sender, EventArgs e)
+        {
+            MessageBox.Show("Todos sobre mi");
+        }
+
+        private void ResetMenu(object sender, EventArgs e)
+        {
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].BackColor = Color.FromArgb(238, 232, 226);
+                buttons[i].Tag = false;
+            }
+            textBox1.Text = "";
+        }
+
+        private void SaveNumber(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            sfd.FilterIndex = 2;
+            sfd.RestoreDirectory = true;
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                
+            }
         }
     }
 }
