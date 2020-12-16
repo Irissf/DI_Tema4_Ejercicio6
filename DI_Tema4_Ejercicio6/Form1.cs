@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,9 @@ namespace DI_Tema4_Ejercicio6
         public int y = 15;
         List<Button> buttons;
 
+        public string password = "contraseña";
+        public int countPin = 0;
+
         //==========================================================================================
 
         public Form1()
@@ -28,6 +32,15 @@ namespace DI_Tema4_Ejercicio6
             this.Text = "Contacts";
             this.button1.Tag = false;
             buttons = new List<Button>();
+
+            Form2 form2 = new Form2();
+            while (countPin < 3)
+            {
+                form2.ShowDialog();
+                count++;
+            }
+            
+
         }
 
         private void GenerateButtons(object sender, EventArgs e)
@@ -121,14 +134,35 @@ namespace DI_Tema4_Ejercicio6
 
         private void SaveNumber(object sender, EventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            sfd.FilterIndex = 2;
-            sfd.RestoreDirectory = true;
-            if (sfd.ShowDialog() == DialogResult.OK)
+            if (textBox1.Text.Length >0)
             {
-                
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                sfd.FilterIndex = 2;
+                sfd.RestoreDirectory = true;
+                sfd.OverwritePrompt = false;//para que no pregunte si queremos reescribir
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    using (StreamWriter sw = new StreamWriter(sfd.FileName,true))
+                    {
+                        sw.WriteLine(textBox1.Text);
+                    }
+                    MessageBox.Show("Guardado");
+                }
             }
+            else
+            {
+                MessageBox.Show("No hay nada para grabar");
+            }
+            
+        }
+
+        private void Exit(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
+
+
 }
+

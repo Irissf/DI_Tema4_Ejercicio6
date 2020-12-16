@@ -100,6 +100,7 @@
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             resources.ApplyResources(this.salirToolStripMenuItem, "salirToolStripMenuItem");
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.Exit);
             // 
             // acercaDeToolStripMenuItem
             // 
