@@ -20,8 +20,8 @@ namespace DI_Tema4_Ejercicio6
         public int y = 15;
         List<Button> buttons;
 
-        public string password = "contraseña";
-        public int countPin = 0;
+        public string password = "1234";
+        public int countPin = 1;
 
         //==========================================================================================
 
@@ -34,12 +34,37 @@ namespace DI_Tema4_Ejercicio6
             buttons = new List<Button>();
 
             Form2 form2 = new Form2();
-            while (countPin < 3)
+
+            // Show testDialog as a modal dialog and determine if DialogResult = OK.
+            if (form2.ShowDialog() == DialogResult.OK)
             {
-                form2.ShowDialog();
-                count++;
+                for (int i = 0; i < 3; i++)
+                {
+                    if (form2.textBox1.Text == password)
+                    {
+                        MessageBox.Show("Contraseña correcta");
+                        form2.Close();
+                        break;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Contraseña incorrecta");
+                        if (countPin == 3)
+                        {
+                            MessageBox.Show("Pusiste mal la contraseña 3 veces.\nEl programa se cerrará");
+                            form2.Close();
+                            Environment.Exit(0);
+                        }
+                        else
+                        {
+                            form2.ShowDialog();
+                        }
+                        countPin++;
+                    }
+                }
             }
-            
+            //form2.Dispose();
+
 
         }
 
@@ -159,7 +184,8 @@ namespace DI_Tema4_Ejercicio6
 
         private void Exit(object sender, EventArgs e)
         {
-            Environment.Exit(0);
+            //Environment.Exit(0);
+            this.Close();
         }
     }
 

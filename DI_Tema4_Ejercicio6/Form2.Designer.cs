@@ -44,6 +44,7 @@ namespace DI_Tema4_Ejercicio6
             // 
             // button1
             // 
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(9, 75);
             this.button1.Name = "button1";
@@ -80,9 +81,8 @@ namespace DI_Tema4_Ejercicio6
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.TextBox textBox1;
     }
 }
